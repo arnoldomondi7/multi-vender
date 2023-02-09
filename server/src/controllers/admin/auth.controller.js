@@ -1,11 +1,11 @@
 import User from '../../models/user.model.js'
 import jwt from 'jsonwebtoken'
 
-//sign up the user.
+//sign up the admin.
 export const signupUser = async (req, res) => {
 	//destructure the data.
 	const { firstName, lastName, email, password } = req.body
-	//fist check if the user already exist.
+	//fist check if the admin already exist.
 	const exists = await User.findOne({ email: req.body.email })
 
 	//handle the error
@@ -15,8 +15,8 @@ export const signupUser = async (req, res) => {
 		})
 	}
 
-	//else register user.
-	const newUser = new User({
+	//else register admin.
+	const newAdmin = new User({
 		firstName,
 		lastName,
 		username: Math.random().toString(),
@@ -26,8 +26,8 @@ export const signupUser = async (req, res) => {
 	})
 
 	try {
-		//save the user.
-		await newUser.save()
+		//save the admin.
+		await newAdmin.save()
 
 		//send res to the frontend.
 		res.status(201).send({
@@ -39,10 +39,10 @@ export const signupUser = async (req, res) => {
 	}
 }
 
-//sign in the user.
+//sign in the admin
 export const signinUser = async (req, res) => {
 	try {
-		//make sure user already exists.
+		//make sure admin already exists.
 		const user = await User.findOne({ email: req.body.email })
 
 		//log error if it doesnt exist.
@@ -83,19 +83,7 @@ export const signinUser = async (req, res) => {
 			},
 		})
 	} catch (error) {
-		console.log(error)
+		// console.log(error)
 		res.status(400).send(error)
 	}
-}
-
-//function that will require the user to be signed in.
-export const requireSignIn = async (req, res, next) => {
-	//getting the token.
-	//remeber the Bearer so slit
-	const token = req.headers.authorization.split(' ')[1]
-	//decode the token
-	const user = jwt.verify(token, process.env.JWTSECRET)
-	//attach the user with  a request.
-	req.user = user
-	next()
 }

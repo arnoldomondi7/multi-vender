@@ -62,9 +62,13 @@ export const signinUser = async (req, res) => {
 		}
 
 		//if ok generate token
-		const token = jwt.sign({ _id: user._id }, process.env.JWTSECRET, {
-			expiresIn: '7d',
-		})
+		const token = jwt.sign(
+			{ _id: user._id, role: user.role },
+			process.env.JWTSECRET,
+			{
+				expiresIn: '7d',
+			}
+		)
 
 		//destructure data
 		const { _id, firstName, lastName, email, role, fullName } = user
@@ -81,19 +85,7 @@ export const signinUser = async (req, res) => {
 			},
 		})
 	} catch (error) {
-		console.log(error)
+		// console.log(error)
 		res.status(400).send(error)
 	}
-}
-
-//function that will require the user to be signed in.
-export const requireSignIn = async (req, res, next) => {
-	//getting the token.
-	//remeber the Bearer so slit
-	const token = req.headers.authorization.split(' ')[1]
-	//decode the token
-	const user = jwt.verify(token, process.env.JWTSECRET)
-	//attach the user with  a request.
-	req.user = user
-	next()
 }
