@@ -57,6 +57,7 @@ const UserSchema = new Schema(
 UserSchema.virtual('password').set(function (password) {
 	//hash the password.
 	const salt = bcrypt.genSaltSync(10)
+	//this.hash_password will be saved in the db
 	this.hash_password = bcrypt.hashSync(password, salt)
 })
 

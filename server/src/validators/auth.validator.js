@@ -19,6 +19,7 @@ export const validateSignInRequests = [
 ]
 
 //function to validate the requests.
+//function will send errors.
 export const isReqValidated = (req, res, next) => {
 	const errors = validationResult(req)
 	if (errors.array().length > 0) {

@@ -3,6 +3,8 @@ import slugify from 'slugify'
 
 export const createCategory = async (req, res) => {
 	try {
+		//if the file exists we will extract the image.
+
 		const categoryObject = {
 			name: req.body.name,
 			slug: slugify(req.body.name, {
@@ -13,6 +15,11 @@ export const createCategory = async (req, res) => {
 				locale: 'vi', // language code of the locale to use
 				trim: true, // trim leading and trailing replacement chars, defaults to `true`
 			}),
+		}
+
+		if (req.file) {
+			categoryObject.categoryImage =
+				process.env.API + '/public/' + req.file.filename
 		}
 		//ensure the parnt id exists.
 		//if it does we use the category object
@@ -30,6 +37,7 @@ export const createCategory = async (req, res) => {
 		//send a +vr response to the user
 		res.status(201).send(saveCat)
 	} catch (error) {
+		console.log(error)
 		res.status(400).send(error)
 	}
 }

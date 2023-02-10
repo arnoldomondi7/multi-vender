@@ -8,7 +8,7 @@ import {
 
 const authRouter = express.Router()
 
-//route to sign in the user.
+//route to sign up the user.
 authRouter.post('/signup', validateSignUpRequests, isReqValidated, signupUser)
 
 //route to sign in the user.

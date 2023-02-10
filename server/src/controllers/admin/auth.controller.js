@@ -64,9 +64,13 @@ export const signinUser = async (req, res) => {
 		}
 
 		//if ok generate token
-		const token = jwt.sign({ _id: user._id }, process.env.JWTSECRET, {
-			expiresIn: '7d',
-		})
+		const token = jwt.sign(
+			{ _id: user._id, role: user.role },
+			process.env.JWTSECRET,
+			{
+				expiresIn: '7d',
+			}
+		)
 
 		//destructure data
 		const { _id, firstName, lastName, email, role, fullName } = user
