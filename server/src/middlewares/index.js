@@ -22,7 +22,7 @@ export const requireSignIn = (req, res, next) => {
 
 //function for the user middleware
 export const userMiddleware = async (req, res, next) => {
-	//makesure the user is the admin
+	//makesure the user is the real user
 	if (req.user.role !== 'user') {
 		return res.status(400).json({ message: 'User Resource!! Access Denied!' })
 	}

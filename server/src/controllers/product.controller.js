@@ -4,8 +4,9 @@ import slugify from 'slugify'
 export const createProduct = async (req, res) => {
 	//destructure the data from the body.
 
-	const { name, price, description, quantity, category, createdBy } = req.body
+	const { name, price, description, quantity, category } = req.body
 
+	//array of images
 	let productPictures = []
 
 	//handle the product pictures.

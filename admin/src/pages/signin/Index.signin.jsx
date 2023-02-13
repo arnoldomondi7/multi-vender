@@ -5,14 +5,28 @@ import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Input from '../../components/ui/input/index.ui'
+import { login } from '../../rtk/features/authSlice'
+import { useDispatch } from 'react-redux'
 
 const Signin = () => {
+	const dispatch = useDispatch()
+	//function to handle the login.
+	const handleSubmit = event => {
+		event.preventDefault()
+
+		const user = {
+			name: 'Arnold',
+			email: 'ano@test.com',
+		}
+
+		dispatch(login(user))
+	}
 	return (
 		<Layout>
 			<Container>
 				<Row style={{ marginTop: '50px' }}>
 					<Col md={{ span: 6, offset: 3 }}>
-						<Form>
+						<Form onSubmit={handleSubmit}>
 							<Input
 								label='Email'
 								placeholder='Enter Email Address'

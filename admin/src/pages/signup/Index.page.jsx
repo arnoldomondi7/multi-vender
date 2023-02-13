@@ -12,7 +12,7 @@ const Signup = () => {
 			<Container>
 				<Row style={{ marginTop: '50px' }}>
 					<Col md={{ span: 6, offset: 3 }}>
-						<Form>
+						<Form onSub>
 							<Row>
 								<Col md={6}>
 									<Input
