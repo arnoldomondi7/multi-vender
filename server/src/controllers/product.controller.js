@@ -1,6 +1,7 @@
 import Product from '../models/product.model.js'
 import slugify from 'slugify'
 
+//function to create a product.
 export const createProduct = async (req, res) => {
 	//destructure the data from the body.
 

@@ -1,10 +1,10 @@
 import Category from '../models/category.model.js'
 import slugify from 'slugify'
 
+//function to create a category
 export const createCategory = async (req, res) => {
 	try {
-		//if the file exists we will extract the image.
-
+		//this is if the image does not exist.
 		const categoryObject = {
 			name: req.body.name,
 			slug: slugify(req.body.name, {
@@ -17,6 +17,8 @@ export const createCategory = async (req, res) => {
 			}),
 		}
 
+		//look if an image exists.
+		//if it does create an image path
 		if (req.file) {
 			categoryObject.categoryImage =
 				process.env.API + '/public/' + req.file.filename
@@ -43,7 +45,6 @@ export const createCategory = async (req, res) => {
 }
 
 //create a function for subcategories.
-
 function createCategories(categories, parentId = null) {
 	//get the categorylist
 	const categoryList = []
