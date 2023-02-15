@@ -75,6 +75,9 @@ export const signinUser = async (req, res) => {
 		//destructure data
 		const { _id, firstName, lastName, email, role, fullName } = user
 
+		//create cookie.
+		res.cookie('token', token, { expiresIn: '7d' })
+
 		res.status(200).send({
 			token,
 			user: {
@@ -90,4 +93,15 @@ export const signinUser = async (req, res) => {
 		// console.log(error)
 		res.status(400).send(error)
 	}
+}
+
+//function to signout user even when token is not expired.
+export const signOut = (req, res) => {
+	//destroy the cookie.
+	res.clearCookie('token')
+
+	//send res to the user.
+	res.status(200).send({
+		message: 'Signed Out Successfully',
+	})
 }

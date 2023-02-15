@@ -76,6 +76,7 @@ export const readCategory = async (req, res) => {
 		const read = await Category.find({})
 
 		//create sub cat.
+		//then read the subcategory.
 		const categoryList = createCategories(read)
 
 		// console.log(categoryList)

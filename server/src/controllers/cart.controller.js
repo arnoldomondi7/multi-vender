@@ -2,15 +2,17 @@ import Cart from '../models/cart.model.js'
 
 //function to create the cart.
 export const createCart = (req, res) => {
+	//CHECK IF THE CART ALREADY EXIST.
 	Cart.findOne({ user: req.user._id }).exec((error, cart) => {
+		//LOG ERROR IF THERE IS ANY.
 		if (error) {
 			return res.status(400).send(error)
 		}
 
+		//IF ITS THERE EDIT THE QUANITY OF PRODUCTS
 		if (cart) {
 			//check if the quantiy of the product has already been recorded.
 			//find is a js method.
-
 			const product = req.body.cartItems.product
 			const item = cart.cartItems.find(cartItem => cartItem.product == product)
 			//reduce the code.

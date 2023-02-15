@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+	signOut,
 	signinUser,
 	signupUser,
 } from '../../controllers/admin/auth.controller.js'
@@ -8,6 +9,7 @@ import {
 	validateSignInRequests,
 	validateSignUpRequests,
 } from '../../validators/auth.validator.js'
+import { requireSignIn } from '../../middlewares/index.js'
 
 const adminRouter = express.Router()
 
@@ -26,6 +28,8 @@ adminRouter.post(
 	isReqValidated,
 	signinUser
 )
+
+adminRouter.post('/admin/signout', signOut)
 
 //export
 export default adminRouter

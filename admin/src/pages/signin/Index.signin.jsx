@@ -6,13 +6,15 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Input from '../../components/ui/input/index.ui'
 import { login } from '../../redux/actions/auth.action'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
 
 const Signin = () => {
 	//create state.
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
+	const auth = useSelector(state => state.auth)
 
 	const dispatch = useDispatch()
 
@@ -21,12 +23,18 @@ const Signin = () => {
 		event.preventDefault()
 
 		const user = {
-			email: 'ano@test.com',
-			password: 'qqqqqqqq',
+			email,
+			password,
 		}
 
 		dispatch(login(user))
 	}
+
+	//handle the authsystem.
+	if (auth.authenticate) {
+		return <Navigate to={`/`} />
+	}
+
 	return (
 		<Layout>
 			<Container>

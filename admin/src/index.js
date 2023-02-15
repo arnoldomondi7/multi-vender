@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import App from './App'
-import './index.css'
 
 //testing the redux
 window.store = store

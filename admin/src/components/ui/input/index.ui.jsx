@@ -4,12 +4,8 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 const Input = props => {
 	return (
-		<Form.Group className='mb-3' controlId='formBasicEmail'>
-			<FloatingLabel
-				controlId='floatingInput'
-				label={props.label}
-				className='mb-3'
-			>
+		<Form.Group>
+			<FloatingLabel label={props.label} className='mb-3'>
 				<Form.Control
 					type={props.type}
 					placeholder={props.placeholder}
