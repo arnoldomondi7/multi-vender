@@ -14,15 +14,10 @@ app.use(cors())
 //connect to the db.
 connectToDb()
 
-//testing the api.
-app.get('/', (req, res) => {
-	res.status(200).json({ message: 'Hello World' })
-})
+//handle the routes.
+app.use('/api', require('./routes/authRoute'))
+app.use('/api', require('./routes/admin/authAdminRoute'))
 
-//testing the post req.
-app.post('/data', (req, res) => {
-	res.status(200).json({ message: req.body })
-})
 //create the server.
 const port = process.env.PORT
 app.listen(port, error => {
