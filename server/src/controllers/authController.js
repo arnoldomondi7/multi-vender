@@ -55,9 +55,13 @@ exports.signIn = (req, res) => {
 			//authenticate the password.
 			if (user.authenticate(req.body.password)) {
 				//if password is ok, generate a signed token.
-				const token = jwt.sign({ _id: user._id }, process.env.JWTSECRET, {
-					expiresIn: '7d',
-				})
+				const token = jwt.sign(
+					{ _id: user._id, role: user.role },
+					process.env.JWTSECRET,
+					{
+						expiresIn: '7d',
+					}
+				)
 
 				//get data from the db.
 				const { _id, firstName, lastName, fullName, email, role } = user
@@ -80,18 +84,4 @@ exports.signIn = (req, res) => {
 			})
 		}
 	})
-}
-
-//create a function that will require the user to be signed in.
-exports.requireSignedIn = (req, res, next) => {
-	//first grt the token and use it to verify the user.
-	const token = req.headers.authorization.split(' ')[1]
-
-	const user = jwt.verify(token, process.env.JWTSECRET)
-
-	//save everything inside the user to the req.user function.
-	//theoritically can be any req value.
-	req.user = user
-
-	next()
 }

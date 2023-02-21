@@ -17,6 +17,8 @@ connectToDb()
 //handle the routes.
 app.use('/api', require('./routes/authRoute'))
 app.use('/api', require('./routes/admin/authAdminRoute'))
+app.use('/api', require('./routes/catrgoryRoute'))
+app.use('/api', require('./routes/productRoute'))
 
 //create the server.
 const port = process.env.PORT

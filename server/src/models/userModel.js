@@ -70,6 +70,7 @@ userSchema.virtual('fullName').get(function () {
 	let user = this
 	return `${user.firstName} ${user.lastName}`
 })
+
 //write a method to authenticate the user when you sign in.
 userSchema.methods = {
 	//lets call the function authenticate.
