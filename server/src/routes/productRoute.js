@@ -1,33 +1,42 @@
 const express = require('express')
+const { createProduct } = require('../controllers/productController')
+//handle the controller functions
 const {
 	requireSignedIn,
 	adminAccess,
 } = require('../middlewares/common.middleware')
-const { createProduct } = require('../controllers/productController')
 const multer = require('multer')
-//create a destination where the files will be updated.
-//shoulld generally create a folder named after the dest key i.e uploads in this case.
-const upload = multer({ dest: 'uploads/' })
 
+//used to generate random name.
+const shortid = require('shortid')
+const path = require('path')
 const ProductRoute = express.Router()
 
 //control the storage of the image.
 const storage = multer.diskStorage({
+	//where we will upload the file.
 	destination: function (req, file, cb) {
-		cb(null, '/tmp/my-uploads')
+		// path.dirname== parentCategory
+		//pat.dirname(__dirname) == currentDirectory
+		// path.join(x,y) joins current directory to the one mentioned
+		cb(null, path.join(path.dirname(__dirname), 'uploads'))
 	},
+	//this is the name of the file that we will save/upload.
 	filename: function (req, file, cb) {
-		const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
-		cb(null, file.fieldname + '-' + uniqueSuffix)
+		cb(null, shortid.generate() + '-' + file.originalname)
 	},
 })
+
+//create a destination where the files will be updated.
+//shoulld generally create a folder named after the dest key i.e uploads in this case.
+const upload = multer({ storage })
 
 //create the product.
 ProductRoute.post(
 	'/product/create',
 	requireSignedIn,
 	adminAccess,
-	upload.single('productPicture'),
+	upload.array('productPicture'),
 	createProduct
 )
 //export the route.

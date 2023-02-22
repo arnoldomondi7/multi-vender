@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+//create the database to hold the data.
 const connectToDb = () => {
 	try {
 		mongoose.connect(process.env.MONGODB)

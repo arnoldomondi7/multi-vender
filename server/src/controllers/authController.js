@@ -21,6 +21,7 @@ exports.signUp = (req, res) => {
 			email,
 			password,
 			username: Math.random().toString(),
+			role: 'user',
 		})
 
 		//save the user.
@@ -35,7 +36,7 @@ exports.signUp = (req, res) => {
 			//send the data to the user frontend if it worksout well.
 			if (data) {
 				return res.status(201).json({
-					message: 'New user created',
+					message: 'New User Created',
 				})
 			}
 		})
@@ -44,6 +45,7 @@ exports.signUp = (req, res) => {
 
 //function to sign in the user.
 exports.signIn = (req, res) => {
+	//find if the user is already registered in the database
 	User.findOne({ email: req.body.email }).exec((error, user) => {
 		//handle the error.
 		if (error) {
@@ -66,7 +68,7 @@ exports.signIn = (req, res) => {
 				//get data from the db.
 				const { _id, firstName, lastName, fullName, email, role } = user
 
-				//send response to the user.
+				//send response to the admin.
 				res.status(200).json({
 					token,
 					user: { _id, firstName, lastName, fullName, email, role },
