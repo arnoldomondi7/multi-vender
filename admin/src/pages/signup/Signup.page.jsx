@@ -42,7 +42,7 @@ const Signup = () => {
 		//handle the success case. meaning there will be a user.
 		if (isSuccess || user) {
 			//we navigate the user to the home page.
-			return navigate('/signin')
+			// return navigate('/signin')
 		}
 
 		// once success reset the state.
